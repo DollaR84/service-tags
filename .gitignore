@@ -1,0 +1,10 @@
+*.log
+*.bat
+*.pyo
+*.pyc
+*.db
+*local.py
+__pycache__/
+.env/
+debug/
+data/
