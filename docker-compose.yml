@@ -13,12 +13,7 @@ services:
   tags:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
-    environment:
-      - PGDBHOST=0.0.0.0
-      - PGDBPORT=5432
-      - PGDBNAME=postgres
-      - PGDBUSER=postgres
-      - PGDBPASSWORD=postgres
+    env_file: common.env
     volumes:
       - ./tags:/tags
     ports:
