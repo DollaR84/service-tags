@@ -43,10 +43,9 @@ class UserTag(generics.RetrieveAPIView):
 
     def get_object(self):
         pk = self.kwargs.get('pk')
-        if pk:
+        if pk and (self.request.user.profile.is_company_admin or (self.request.user.id == pk)):
             return self.queryset.get(user=pk)
-        else:
-            return self.queryset.get(user=self.request.user)
+        return self.queryset.get(user=self.request.user)
 
     def perform_create(self, serializer):
         instance = serializer.save()
