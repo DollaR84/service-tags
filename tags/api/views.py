@@ -12,7 +12,7 @@ from .models import Profile
 
 from . import serializers
 
-from .permissions import IsUser, IsAdmin, IsUserOrAdmin
+from .permissions import IsUser, IsAdmin, IsUserOrAdmin, IsAdminUserOrReadOnly
 
 # Create your views here.
 
@@ -20,7 +20,7 @@ from .permissions import IsUser, IsAdmin, IsUserOrAdmin
 class TagsList(generics.ListAPIView):
     queryset = Tag.objects.all()
     serializer_class = serializers.TagSerializer
-    permission_classes = [permissions.IsAuthenticated, IsAdmin]
+    permission_classes = [IsAdminUserOrReadOnly]
 
 
 class UsersList(generics.ListAPIView):
