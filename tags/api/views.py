@@ -12,7 +12,7 @@ from .models import Profile
 
 from . import serializers
 
-from .permissions import IsUser, IsAdmin
+from .permissions import IsUser, IsAdmin, IsUserOrAdmin
 
 # Create your views here.
 
@@ -39,7 +39,7 @@ class UsersList(generics.ListAPIView):
 class UserTag(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
     serializer_class = serializers.UserTagSerializer
-    permission_classes = [permissions.IsAuthenticated, IsUser]
+    permission_classes = [permissions.IsAuthenticated, IsUserOrAdmin]
 
     def get_object(self):
         pk = self.kwargs.get('pk')
