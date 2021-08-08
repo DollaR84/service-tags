@@ -16,12 +16,14 @@ RUN pip install -r requirements.txt
 FROM python:3.8-slim
 
 RUN apt-get update \
+  && apt-get install -y \
+  libpq-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build-python /usr/local/lib/python3.8/site-packages/ /usr/local/lib/python3.8/site-packages/
 COPY --from=build-python /usr/local/bin/ /usr/local/bin/
-COPY . /tags
+COPY ./tags /tags
 WORKDIR /tags
 
 EXPOSE 8000
