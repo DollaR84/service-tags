@@ -1,7 +1,5 @@
 from rest_framework import generics, permissions
-
 from rest_framework.response import Response
-
 from rest_framework.views import APIView
 
 from django.contrib.auth.models import User
@@ -31,7 +29,10 @@ class UsersList(generics.ListAPIView):
         tags = self.kwargs.get('tags')
         if tags:
             tags = tags.split('+')
-            return Profile.objects.filter(tags__name__in=tags).distinct()
+            query = Profile.objects.all()
+            for tag in tags:
+                query = query.filter(tags__name=tag)
+            return query
         else:
             return Profile.objects.all()
 
